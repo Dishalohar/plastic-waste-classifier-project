@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Plastic Waste Classifier</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Plastic Waste Classifier</h1>
+        <p>Upload an image to classify plastic waste.</p>
+
+        <nav>
+            <a href="{{ url_for('index') }}">Upload Image</a> |
+            <a href="{{ url_for('history') }}">View Prediction History</a>
+        </nav>
+
+        <hr>
+
+        <div class="upload-box">
+            <form method="POST"
+                  action="{{ url_for('index') }}"
+                  enctype="multipart/form-data">
+
+                <label for="file">
+                    Select or capture a plastic item image:
+                </label>
+                <br><br>
+
+                <input type="file"
+                       id="file"
+                       name="file"
+                       accept="image/png,image/jpeg"
+                       required>
+
+                <br><br>
+
+                <button type="submit">
+                    Detect Plastic Waste
+                </button>
+            </form>
+        </div>
+
+        {% if prediction %}
+        <div class="result">
+            <h2>Prediction Result</h2>
+
+            <h3>Predicted Category:</h3>
+            <p>{{ prediction.plastic_type }}</p>
+
+            <h3>Confidence Score:</h3>
+            <p>{{ prediction.confidence }}%</p>
+
+            <h3>Uploaded Image:</h3>
+            <img
+                src="{{ url_for('static',
+                     filename='uploads/' + prediction.filename) }}"
+                alt="Uploaded plastic waste"
+                style="max-width:100%; height:auto;">
+
+            <br><br>
+
+            <a href="{{ url_for('history') }}">
+                View Prediction History
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

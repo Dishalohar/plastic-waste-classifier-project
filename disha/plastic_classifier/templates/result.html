@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prediction Result</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Prediction Result</h1>
+
+        <h3>Predicted Category:</h3>
+        <p>{{ predicted_category }}</p>
+
+        <h3>Confidence Score:</h3>
+        <p>{{ confidence }}%</p>
+
+        {% if image_path %}
+        <h3>Detected Image:</h3>
+        <img src="{{ url_for('static', filename=image_path) }}"
+             alt="Detected plastic"
+             style="max-width:100%; height:auto;">
+        {% endif %}
+
+        <br><br>
+        <a href="{{ url_for('index') }}">Back to Classifier</a>
+        <br><br>
+        <a href="{{ url_for('history') }}">View Prediction History</a>
+    </div>
+</body>
+</html>
